@@ -1,0 +1,18 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block body %}
+<div class="flex justify-center "><p class="  text-green-500 text-8xl mt-4 text-gray-500 font-extrabold">👮🏿‍♀️👮🏿‍♀️ LOGGED <span class="text-black">OUT</span></p></div><br>
+<div class="flex justify-center "><p class=" text-green-500 text-8xl mt-4 text-gray-500 font-semibold">SUCCESSFULLY <span class="text-8xl mt-4 text-black font-semibold">!!</span></p></div>
+<div class="flex justify-center items-center mt-12  " >
+    <form method="POST" enctype="multipart/form-data" class="flex flex-col gap-4 p-20 w-1/2 bg-red-50 justify-center border-green-500 rounded shadow-lg border-4 ">
+        {% csrf_token %}
+        <div>
+            <label CLASS=" text-8xl font-semibold" for="USERNAME">BYE BYE 👋{{ user.username }}!</label><br>
+            <div class="bg-white">{{ user.username }}</div>
+        </div>
+        
+        <div><input CLASS=" bg-green-500 hover:bg-green-600 text-white px-4 py-2 mr-4x rounded" value="LOGOUT" type="submit" id="LOGOUT" name="LOGOUT" ></div>
+    </form>
+</div>   
+<div class="flex justify-center "><p class="text-2xl mt-4 text-gray-500 font-semibold">Will Miss You 😢</p></div>
+{% endblock %} 

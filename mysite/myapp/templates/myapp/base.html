@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'myapp/styles.css' %}">
+</head>
+<body>
+    <nav class="bg-red-50 shadow-lg">
+            <div class="height-auto">
+                <div>
+                    <div class="flex  px-2 py-1 gap-2">
+                        <div>
+                            <a class="flex px-2 py-4 gap-2 ">
+                            <img class="w-8csc h-8 " src="{% static 'myapp/images/shoping.png' %}" alt="shoppping logo">
+                            <span class=" text-base font-semibold">Shop Street</span>
+                            </a>
+                        </div>
+
+                        <div class="flex">
+                        <a href="{% url 'myapp:lists' %}" class="py-4 px-2 text-base font-semibold {% if request.resolver_match.url_name == 'lists' %}border-b-4 border-pink-500{% endif %}">Home</a>
+                        <a href="{% url 'myapp:add_products' %}" class="py-4 px-2 text-base font-semibold {% if request.resolver_match.url_name == 'add_products' %}border-b-4 border-pink-500{% endif %}">Add</a>
+                        <a href="{% url 'myapp:my_listings' %}" class="py-4 px-2 text-base font-semibold {% if request.resolver_match.url_name == 'my_listings' %}border-b-4 border-pink-500{% endif %}">My Listings</a>
+                        {% if user.is_authenticated %}
+                            <form method="POST" action="{% url 'users:logout' %}" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="py-4 px-2 text-base font-semibold ml-36">
+                                    Logout
+                                </button>
+                            </form>
+                            <div class="flex flex-col py-4  items-center font-semibold ml-96">
+                                <a href="{% url 'users:profile' %}" class="text-base font-semibold ">👤</a>
+                                <p class="text-sm text-black font-semibold">Profile</p>
+                            </div>
+                        {% else %}
+                            <a href="{% url 'users:login' %}" class="py-4 px-2 text-base font-semibold  ml-36">Login</a>
+                        {% endif %}
+                        </div>
+                        <div>
+
+                        </div>
+                    <div>   
+            </div>
+        </div>
+    </nav>
+    {% block body %}
+
+    {% endblock %}
+</body>
+</html>

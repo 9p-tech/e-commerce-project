@@ -1,0 +1,67 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block body %}
+    <h1 class="p-10 text-7xl text-gray-500 font-extrabold">This is. detail page for :- {{item}}</h1>
+    <div class="flex">
+        {% if item.image %}
+            <img class="float-left w-1/2 max-h-[400px] object-contain overflow-hidden  ml-12  object-contain" src="{{ item.image.url }}" alt="image">
+        {% else %}
+            <div class="w-1/2 max-h-[400px]  ml-12  flex items-center justify-center bg-gray-200">
+                <p class="text-gray-500">No image available</p>
+            </div>
+        {% endif %}
+        <div class="py-8 m-7">
+            <p class="text-2xl text-gray-500 font-bold">ID:-{{item.id}}</p>
+            <p class="text-2xl text-gray-500 font-bold">NAME:-{{item.name}}</p>
+            <p class="text-2xl text-gray-500 font-bold ">PRICE:-<span class="text-pink-400"><span class="text-green-500">💵 </span>{{item.price}}</span></p>
+            <p class="text-2xl text-gray-500 font-bold">DESCRIPTION:-{{item.des}}</p>
+            <label default="NONE" class="text-2xl text-gray-500 font-bold inline ">LISTED BY:-<a href="{% url 'users:profile_with_id' item.seller_name.id %}">
+                {% if item.seller_name %}
+                    <p class="  underline font-bold text-2xl text-pink-400 mb-0 inline">{{item.seller_name.username}}</p>
+                {% else %}  
+                    NONE
+                {% endif %} 
+                </a>       
+            </label></br>
+            <label default="NONE" class=" text-2xl text-gray-500 font-bold">SELLER CONTACT NUMBER:-
+                {% if item.seller_name %}
+                    {{ item.seller_name.profile.contact_number }}
+                {% else %}  
+                    NONE
+                {% endif %}    
+
+            </label>
+            <div>
+            {% if not item.is_sold %}
+                <button class="p-2 bg-pink-400 hover:bg-pink-600 w-40" id="checkout-button" >Checkout</button>
+            {% else %}
+                <p class=" font-bold text-2xl text-pink-400">This item is sold!</p>
+            {% endif %} 
+            </div>  
+
+        </div> 
+    </div>       
+        <script src="https://js.stripe.com/v3/"></script>
+        <script>
+            var stripe = Stripe('{{ stripe_key }}');
+            var checkoutButton = document.getElementById('checkout-button');
+
+            checkoutButton.addEventListener('click', function() {
+                fetch("{% url 'myapp:api_checkout_session' id=item.id %}", {method: 'POST'})
+                .then(function(response) {
+                    return response.json()
+                })
+                .then(function(session) {
+                    return stripe.redirectToCheckout({sessionId: session.SessionId})
+                })
+                .then(function(result) {
+                    if(result.error) {
+                        alert(result.error.message)
+                    }
+                })
+                .catch(function(error) {
+                    console.error('Error', error)
+                })
+            })
+        </script>
+{% endblock %}

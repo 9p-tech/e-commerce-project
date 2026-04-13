@@ -1,0 +1,25 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block body %}
+<form method="POST">
+    {% csrf_token %}
+    <h1 class="p-10 text-7xl text-gray-500 font-extrabold">This is. detail page for :- {{item}}</h1>
+    {% if item.image %}
+         <img class="float-left m-7 max-w-[946px] max-h-[632px] object-contain" src="{{ item.image.url }}" alt="image">
+    {% else %}
+        <div class="w-full h-64 flex items-center justify-center bg-gray-200">
+            <p class="text-gray-500">No image available</p>
+        </div>
+    {% endif %}
+    <div class="py-8 m-7">
+        <p class="text-2xl text-gray-500 font-bold">ID:-{{item.id}}</p>
+        <p class="text-2xl text-gray-500 font-bold">NAME:-{{item.name}}</p>
+        <p class="text-2xl text-gray-500 font-bold ">PRICE:-<span class="text-green-500">${{item.price}}</span></p>
+        <p class="text-2xl text-gray-500 font-bold">DESCRIPTION:-{{item.des}}</p>
+        <div class=" flex gap-4 flex-col mt-12 ">
+            <input CLASS=" flex-1 font-extrabold text-4xl p-16 bg-green-500 hover:bg-green-600 rounded" type="submit" id="deleteproduct" name="deleteproduct" value="Confirm Delete">
+            <a CLASS=" flex-1 font-extrabold text-4xl p-16 bg-red-50 hover:bg-red-500 rounded text-center" href="{% url 'myapp:lists' %}">Cancel Delete</a>
+        </div>
+    </div>  
+</form>    
+{% endblock %}

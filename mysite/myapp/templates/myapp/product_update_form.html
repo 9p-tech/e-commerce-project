@@ -1,0 +1,42 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block body %}
+<div class="flex justify-center "><p class="  text-pink-400 text-8xl mt-4 text-gray-500 font-extrabold"> UPDATE <span class="text-black">PRODUCT</span></p></div>
+<div class="flex justify-center items-center mt-12  " >
+    <form method="POST" enctype="multipart/form-data" class="flex flex-col gap-4 p-20 w-1/2 bg-red-50 justify-center items-center border-pink-400 rounded shadow-lg border-4 ">
+        {% csrf_token %}
+        
+        <div>
+            <label CLASS=" text-2xl font-semibold " for="NAME:-">NAME:-</label><br>
+            <div class="px-5 py-2 text-xl rounded bg-white" >
+                {{ form.name|attr:"autocomplete:new-password"|attr:"style:outline:none;box-shadow:none;width:100%;background-color:white;"|attr:"placeholder:iphone 14 pro max" }}
+            </div>
+        </div>
+        <div>
+            <label CLASS=" text-2xl font-semibold" for="PRICE">PRICE:-</label><br>
+            <div class="px-5 py-2 text-xl rounded bg-white" >
+                {{ form.price|attr:"autocomplete:new-password"|attr:"style:outline:none;box-shadow:none;width:100%;background-color:white;"|attr:"placeholder:16000" }}
+            </div>
+        </div>
+        <div>
+            <label CLASS=" text-2xl font-semibold" for="DESCRIPTION">DESCRIPTION:-</label><br>
+            <div class="px-5 py-2 text-xl rounded bg-white" >
+                {{ form.des|attr:"autocomplete:new-password"|attr:"style:outline:none;box-shadow:none;width:100%;background-color:white;"|attr:"placeholder:it is an iphone" }}
+            </div>
+        </div>
+        <div class="flex flex-col gap-2">
+            {% if object.image %}
+                <img class="w-20 h-20 mx-auto" src="{{ object.image.url }}">
+            {% else %}
+                <p class="text-gray-500 text-center">No image uploaded</p>
+            {% endif %}
+        </div>
+        <div>
+            {{ form.image }}
+        </div>
+        <div><input CLASS=" bg-pink-400 hover:bg-pink-600 text-white px-4 py-2 mr-4x rounded" type="submit" id="updateproduct" name="updateproduct" value="updateproduct"></div>
+        
+    </form>
+</div>    
+{% endblock %}    

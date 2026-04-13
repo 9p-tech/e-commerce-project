@@ -1,0 +1,69 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block body %}
+    <main >
+        <div class="sm:text-center lg:text-left py-2 px-8">
+            <h1 class=" mx-auto text-7xl font-extrabold ">
+                <span class="block xl:inline ">Premium Products</span>
+                <span class="block xl:inline text-pink-400">Non Premium Prices</span>
+            </h1>
+            <p class="mt-4 text-gray-500 text-base font-normal tracking-wide max-w-xl">
+                Get the best quality used products across the globe. Free shipping
+            </p>
+        </div>
+    </main>
+    <div class="mt-5 p-10 flex justify-center">
+        <p class="font-semibold text-gray-500 text-4xl">Recent Products</p>
+    </div>
+    <div class="p-10">
+        <form method="GET" >
+            <label class="text-2xl text-pink-400">Search Products 🔎</label><br>
+            <input type="text" name="search" id="search" placeholder="Type a product to search." class=" border border-4 w-64 p-2 border-pink-400 text-pink-500" >
+        </form>
+    </div>
+                                         
+  <div class="p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+  {% for product in page_obj %}
+  
+    <a href="{% url 'myapp:product_detail' product.id %}">
+        <div class="p-4 flex flex-col bg-white w-full shadow-lg">
+            {% if product.image %}
+                 <img class="w-full h-64 object-contain bg-white" src="{{ product.image.url }}">
+            {% else %}
+                <div class="w-full h-64 flex items-center justify-center bg-gray-200">
+                    <p class="text-gray-500">No image available</p>
+                </div>
+            {% endif %}
+            <div class="flex">
+                <div class="flex flex-col mt-2 gap-1 ">
+                    <p class="font-extrabold text-xl">{{ product.name }}</p>
+                    <p class="font-bold text-xl text-pink-400">$ {{ product.price }}</p>
+                    <p class="font-bold text-xl">{{ product.des }}</p>
+                </div>
+                <div class=" ml-auto self-end">
+                     {% if product.is_sold %}
+                        <p class="underline hover:text-pink-400 font-bold text-xl ">Sold out!!</p>
+                    {% else %}    
+                        <p></p>
+                    {% endif %} 
+                </div>
+            </div>
+
+        </div>
+    </a>
+
+  {% endfor %}
+</div>
+<div class="pagination flex gap-2 justify-center mb-20">
+    {% if page_obj.has_previous %}
+        <a class="text-sm font-bold border-2 border-pink-500 text-pink-500 p-2" href="?page=1">FIRST</a>
+        <a class="text-sm font-bold border-2 border-pink-500 text-pink-500 p-2" href="?page={{ page_obj.previous_page_number}}">PREVIOUS</a>
+    {% endif %}
+    <div class="text-sm font-bold border-2 border-pink-500 text-pink-500 p-2">PAGE {{ page_obj.number }} OF {{page_obj.paginator.num_pages}}</div>
+    {% if page_obj.has_next %}
+        <a class="text-sm font-bold border-2 border-pink-500 text-pink-500 p-2" href="?page={{ page_obj.next_page_number }}">NEXT</a>
+        <a class="text-sm font-bold border-2 border-pink-500 text-pink-500 p-2" href="?page={{ page_obj.paginator.num_pages }}">LAST</a>
+    {% endif %}
+</div>
+
+{% endblock %}

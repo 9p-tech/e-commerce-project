@@ -1,0 +1,12 @@
+{% extends 'myapp/base.html' %}
+{% block body %}
+<div class="flex justify-center "><p class="  text-green-500 text-8xl mt-4 text-pink-400 font-extrabold">Seller Profile</p></div>
+<div class=" mt-12 flex  justify-center items-center ">
+    <div class=" flex flex-col justify-center items-center gap-4 p-20 w-1/2 shadow-lg border-4 border-pink-400 bg-red-50" >
+        <img class='w-64 h-64 object-contain border-red-500' src="{{ seller_profile.profile.image.url }}" alt="Profile Image">
+        <h1 class="text-2xl">{{ seller_profile.username }}</h1>
+        <h1 class="text-2xl">📞 {{ seller_profile.profile.contact_number }}</h1>
+    </div>   
+
+</div>   
+{% endblock %}

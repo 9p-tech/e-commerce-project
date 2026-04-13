@@ -1,0 +1,30 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block body %}
+<div class="flex justify-center "><p class="  text-green-500 text-8xl mt-4 text-gray-500 font-extrabold">UPDATE <span class="text-black">PRODUCT</span></p></div>
+<div class="flex justify-center items-center mt-12  " >
+    <form method="POST" enctype="multipart/form-data" class="flex flex-col gap-4 p-20 w-1/2 bg-red-50 justify-center items-center border-green-500 rounded shadow-lg border-4 ">
+        {% csrf_token %}
+        
+        <div>
+            <label CLASS=" text-2xl font-semibold" for="NAME:-">NAME:-</label><br>
+            <input class="px-5 py-2 text-xl rounded" placeholder="iphone"value={{item.name}} type="text" id="name" name="name">
+        </div>
+        <div>
+            <label CLASS=" text-2xl font-semibold" for="PRICE">PRICE:-</label><br>
+            <input class="px-5 py-2 text-xl rounded" value={{item.price}} placeholder="16000" type="text" id="price" name="price">
+        </div>
+        <div>
+            <label CLASS=" text-2xl font-semibold" for="DESCRIPTION">DESCRIPTION:-</label><br>
+            <input class="px-5 py-2 text-xl rounded" value={{item.des}} placeholder="it is an iphone" type="text" id="des" name="des">
+        </div>
+        <div class="flex flex-col gap-2">
+            <img class=" w-20 h-20 mx-auto " src="{{item.image.url}}">
+            <p class="font-bold text-center ">Product Image</p>
+        </div>
+        <div><input placeholder="desc" type="file" accept="image/*" id="upload"name="upload" ></div>
+        <div><input CLASS=" bg-green-500 hover:bg-green-600 text-white px-4 py-2 mr-4x rounded" type="submit" id="updateproduct" name="updateproduct" value="updateproduct"></div>
+        
+    </form>
+</div>    
+{% endblock %}    

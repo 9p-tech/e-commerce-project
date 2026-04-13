@@ -1,0 +1,28 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block body %}
+<div class="flex justify-center "><p class="  text-pink-400 text-8xl mt-4 text-gray-500 font-extrabold">🧑🏻‍💻 REGISTER <span class="text-black">HERE</span></p></div>
+<div class="flex justify-center items-center mt-12  " >
+    <form method="POST" enctype="multipart/form-data" class="flex flex-col gap-4 p-20 w-1/2 bg-red-50 justify-center border-pink-400 rounded shadow-lg border-4 ">
+        {% csrf_token %}
+        
+        <div>
+            <label CLASS=" text-2xl font-semibold" for="EMAIL:-">EMAIL:-</label><br>
+            <div class="bg-white" >{{ form.email }}</div>
+        </div>
+        <div>
+            <label CLASS=" text-2xl font-semibold" for="USERNAME">USERNAME:-</label><br>
+            <div class="bg-white">{{ form.username }}</div>
+        </div>
+        <div>
+            <label CLASS=" text-2xl font-semibold" for="PASSWORD1">PASSWORD1:-</label><br>
+            <div class="bg-white">{{ form.password1 }}</div>
+        </div>
+        <div>
+            <label CLASS=" text-2xl font-semibold" for="PASSWORD2">PASSWORD2:-</label><br>
+            <div class="bg-white">{{ form.password2 }}</div>
+        </div>
+        <div><input CLASS=" bg-pink-400 hover:bg-pink-600 text-white px-4 py-2 mr-4x rounded" value="REGISTER" type="submit" id="Register" name="Register" ></div>
+    </form>
+</div>    
+{% endblock %} 
